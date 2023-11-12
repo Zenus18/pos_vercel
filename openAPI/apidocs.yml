@@ -1,0 +1,25 @@
+openapi: '3.0.2'
+info:
+  title: Point Of Sale API
+  version: '1.0'
+servers:
+  - url: https://127.0.0.1/api
+paths:
+  /categories:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+
+
