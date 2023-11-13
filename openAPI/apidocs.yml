@@ -5,11 +5,13 @@ info:
 servers:
   - url: https://127.0.0.1/api
 paths:
+# cashier
+  # route category
   /categories:
     get:
       responses:
         '200':
-          description: OK
+          description: Berhasil menerima data
           content:
             application/json:
               schema:
@@ -21,5 +23,148 @@ paths:
                       type: integer
                     name:
                       type: string
+                  example:
+                  # ditampilkan secara urut abjad A-Z
+                    category-1:
+                      id: 4
+                      name: Curah
+                    category-2:
+                      id: 2
+                      name: Jajanan
+                    category-3:
+                      id: 3
+                      name: Kebutuhan Rumah Tangga
+                    category-4:
+                      id: 1
+                      name: Sembako
+        '404':
+          description: Data tidak ditemukan
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        '403':
+          description: Tidak bisa diakses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
 
+  # route product
+  /products:
+    get:
+      responses:
+        '200':
+          description: Berhasil menerima data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    category_id:
+                      type: integer
+                    unit_id:
+                      type: integer
+                    name:
+                      type: string
+                    selling_price:
+                      type: integer
+                    qty_available:
+                      type: integer
+                    category:
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                    unit:
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                    discounts:
+                      properties:
+                        product_id:
+                          type: integer
+                        is_discount_active:
+                          type: boolean
+                        is_discount_percentage:
+                          type: boolean
+                        discount:
+                          type: integer
+                  example:
+                  # ditampilkan secara urut abjad A-Z
+                    product-1:
+                      id: 1
+                      category_id: 1
+                      unit_id: 1
+                      name: Mie Goreng
+                      selling_price: 3000
+                      qty_available: 50
+                      category:
+                          id: 1
+                          name: Sembako
+                      unit:
+                          id: 1
+                          name: Pcs
+                      discounts:
+                          product_id: 1
+                          is_discount_active: true
+                          is_discount_percentage: false
+                          discount: 500
+                    product-2:
+                      id: 2
+                      category_id: 1
+                      unit_id: 1
+                      name: Minyak Goreng 1 Liter
+                      selling_price: 17000
+                      qty_available: 30
+                      category:
+                          id: 1
+                          name: Sembako
+                      unit:
+                          id: 1
+                          name: Pcs
+                      discounts:
+                          product_id: 1
+                          is_discount_active: true
+                          is_discount_percentage: false
+                          discount: 500
+        '404':
+          description: Data tidak ditemukan
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        '403':
+          description: Tidak bisa diakses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
 
