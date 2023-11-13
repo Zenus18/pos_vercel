@@ -1,16 +1,16 @@
-openapi: '3.0.2'
+openapi: "3.0.2"
 info:
   title: Point Of Sale API
-  version: '1.0'
+  version: "1.0"
 servers:
   - url: https://127.0.0.1/api
 paths:
-# cashier
+  # cashier
   # route category
   /categories:
     get:
       responses:
-        '200':
+        "200":
           description: Berhasil menerima data
           content:
             application/json:
@@ -24,7 +24,7 @@ paths:
                     name:
                       type: string
                   example:
-                  # ditampilkan secara urut abjad A-Z
+                    # ditampilkan secara urut abjad A-Z
                     category-1:
                       id: 4
                       name: Curah
@@ -37,7 +37,7 @@ paths:
                     category-4:
                       id: 1
                       name: Sembako
-        '404':
+        "404":
           description: Data tidak ditemukan
           content:
             application/json:
@@ -48,8 +48,19 @@ paths:
                   properties:
                     message:
                       type: string
-        '403':
+        "403":
           description: Tidak bisa diakses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "500":
+          description: Terjadi Kesalahan Pada Server
           content:
             application/json:
               schema:
@@ -64,7 +75,445 @@ paths:
   /products:
     get:
       responses:
-        '200':
+        "200":
+          description: Berhasil menerima data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    unit_id:
+                      type: integer
+                    name:
+                      type: string
+                    selling_price:
+                      type: integer
+                    qty_available:
+                      type: integer
+                    image_url:
+                      type: string
+                    unit:
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                    discounts:
+                      properties:
+                        product_id:
+                          type: integer
+                        is_discount_active:
+                          type: boolean
+                        is_discount_percentage:
+                          type: boolean
+                        discount:
+                          type: integer
+                  example:
+                    # ditampilkan secara urut abjad A-Z
+                    product-1:
+                      id: 1
+                      category_id: 1
+                      unit_id: 1
+                      name: Beras
+                      selling_price: 3000
+                      qty_available: 50
+                      image_url: "http://example.com"
+                      unit:
+                        id: 1
+                        name: Pcs
+                      discounts:
+                        product_id: 1
+                        is_discount_active: true
+                        is_discount_percentage: false
+                        discount: 500
+                    product-2:
+                      id: 2
+                      category_id: 1
+                      unit_id: 1
+                      name: Beras mawar 1 Liter
+                      selling_price: 17000
+                      qty_available: 30
+                      image_url: "http://example.com"
+                      unit:
+                        id: 1
+                        name: Pcs
+                      discounts:
+                        product_id: 1
+                        is_discount_active: true
+                        is_discount_percentage: false
+                        discount: 500
+        "404":
+          description: Data tidak ditemukan
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "403":
+          description: Tidak bisa diakses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "500":
+          description: Terjadi Kesalahan Pada Server
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+
+  # route product details
+  /products/{id}:
+    get:
+      responses:
+        "200":
+          description: Berhasil menerima data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                 properties:
+                    id:
+                      type: integer
+                    unit_id:
+                      type: integer
+                    name:
+                      type: string
+                    selling_price:
+                      type: integer
+                    qty_available:
+                      type: integer
+                    image_url:
+                      type: string
+                    unit:
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                    discounts:
+                      properties:
+                        product_id:
+                          type: integer
+                        is_discount_active:
+                          type: boolean
+                        is_discount_percentage:
+                          type: boolean
+                        discount:
+                          type: integer
+                  example:
+                    # ditampilkan secara urut abjad A-Z
+                    product-1:
+                      id: 1
+                      category_id: 1
+                      unit_id: 1
+                      name: Beras
+                      selling_price: 3000
+                      qty_available: 50
+                      image_url: "http://example.com"
+                      unit:
+                        id: 1
+                        name: Pcs
+                      discounts:
+                        product_id: 1
+                        is_discount_active: true
+                        is_discount_percentage: false
+                        discount: 500
+                    product-2:
+                      id: 2
+                      category_id: 1
+                      unit_id: 1
+                      name: Beras mawar 1 Liter
+                      selling_price: 17000
+                      qty_available: 30
+                      image_url: "http://example.com"
+                      unit:
+                        id: 1
+                        name: Pcs
+                      discounts:
+                        product_id: 1
+                        is_discount_active: true
+                        is_discount_percentage: false
+                        discount: 500
+        "404":
+          description: Data tidak ditemukan
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "403":
+          description: Tidak bisa diakses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "500":
+          description: Terjadi Kesalahan Pada Server
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+
+  # route untuk product dengan query
+  /product?query=beras:
+    get:
+      get:
+      responses:
+        "200":
+          description: Berhasil menerima data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    unit_id:
+                      type: integer
+                    name:
+                      type: string
+                    selling_price:
+                      type: integer
+                    qty_available:
+                      type: integer
+                    image_url:
+                      type: string
+                    unit:
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                    discounts:
+                      properties:
+                        product_id:
+                          type: integer
+                        is_discount_active:
+                          type: boolean
+                        is_discount_percentage:
+                          type: boolean
+                        discount:
+                          type: integer
+                  example:
+                    # ditampilkan secara urut abjad A-Z
+                    product-1:
+                      id: 1
+                      category_id: 1
+                      unit_id: 1
+                      name: Beras
+                      selling_price: 3000
+                      qty_available: 50
+                      image_url: "http://example.com"
+                      unit:
+                        id: 1
+                        name: Pcs
+                      discounts:
+                        product_id: 1
+                        is_discount_active: true
+                        is_discount_percentage: false
+                        discount: 500
+                    product-2:
+                      id: 2
+                      category_id: 1
+                      unit_id: 1
+                      name: Beras mawar 1 Liter
+                      selling_price: 17000
+                      qty_available: 30
+                      image_url: "http://example.com"
+                      unit:
+                        id: 1
+                        name: Pcs
+                      discounts:
+                        product_id: 1
+                        is_discount_active: true
+                        is_discount_percentage: false
+                        discount: 500
+        "404":
+          description: Data tidak ditemukan
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "403":
+          description: Tidak bisa diakses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "500":
+          description: Terjadi Kesalahan Pada Server
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+
+  # route untuk product dengan category
+  /product?category=1:
+    get:
+      get:
+      responses:
+        "200":
+          description: Berhasil menerima data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    unit_id:
+                      type: integer
+                    name:
+                      type: string
+                    selling_price:
+                      type: integer
+                    qty_available:
+                      type: integer
+                    image_url:
+                      type: string
+                    unit:
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                    discounts:
+                      properties:
+                        product_id:
+                          type: integer
+                        is_discount_active:
+                          type: boolean
+                        is_discount_percentage:
+                          type: boolean
+                        discount:
+                          type: integer
+                  example:
+                    # ditampilkan secara urut abjad A-Z
+                    product-1:
+                      id: 1
+                      category_id: 1
+                      unit_id: 1
+                      name: Beras
+                      selling_price: 3000
+                      qty_available: 50
+                      image_url: "http://example.com"
+                      unit:
+                        id: 1
+                        name: Pcs
+                      discounts:
+                        product_id: 1
+                        is_discount_active: true
+                        is_discount_percentage: false
+                        discount: 500
+                    product-2:
+                      id: 2
+                      category_id: 1
+                      unit_id: 1
+                      name: Beras mawar 1 Liter
+                      selling_price: 17000
+                      qty_available: 30
+                      image_url: "http://example.com"
+                      unit:
+                        id: 1
+                        name: Pcs
+                      discounts:
+                        product_id: 1
+                        is_discount_active: true
+                        is_discount_percentage: false
+                        discount: 500
+        "404":
+          description: Data tidak ditemukan
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "403":
+          description: Tidak bisa diakses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "500":
+          description: Terjadi Kesalahan Pada Server
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+
+  # route untuk product dengan category  dan query
+  /product?category=1&query=Beras:
+      get:
+      responses:
+        "200":
           description: Berhasil menerima data
           content:
             application/json:
@@ -108,44 +557,46 @@ paths:
                         discount:
                           type: integer
                   example:
-                  # ditampilkan secara urut abjad A-Z
+                    # ditampilkan secara urut abjad A-Z
                     product-1:
                       id: 1
                       category_id: 1
                       unit_id: 1
-                      name: Mie Goreng
+                      name: Beras
                       selling_price: 3000
                       qty_available: 50
+                      image_url: "http://example.com"
                       category:
-                          id: 1
-                          name: Sembako
+                        id: 1
+                        name: Sembako
                       unit:
-                          id: 1
-                          name: Pcs
+                        id: 1
+                        name: Pcs
                       discounts:
-                          product_id: 1
-                          is_discount_active: true
-                          is_discount_percentage: false
-                          discount: 500
+                        product_id: 1
+                        is_discount_active: true
+                        is_discount_percentage: false
+                        discount: 500
                     product-2:
                       id: 2
                       category_id: 1
                       unit_id: 1
-                      name: Minyak Goreng 1 Liter
+                      name: Beras mawar 1 Liter
                       selling_price: 17000
                       qty_available: 30
+                      image_url: "http://example.com"
                       category:
-                          id: 1
-                          name: Sembako
+                        id: 1
+                        name: Sembako
                       unit:
-                          id: 1
-                          name: Pcs
+                        id: 1
+                        name: Pcs
                       discounts:
-                          product_id: 1
-                          is_discount_active: true
-                          is_discount_percentage: false
-                          discount: 500
-        '404':
+                        product_id: 1
+                        is_discount_active: true
+                        is_discount_percentage: false
+                        discount: 500
+        "404":
           description: Data tidak ditemukan
           content:
             application/json:
@@ -156,7 +607,7 @@ paths:
                   properties:
                     message:
                       type: string
-        '403':
+        "403":
           description: Tidak bisa diakses
           content:
             application/json:
@@ -167,4 +618,270 @@ paths:
                   properties:
                     message:
                       type: string
+        "500":
+          description: Terjadi Kesalahan Pada Server
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
 
+  # route Scan Product
+  /product/scan:
+    post:
+      responses:
+        "200":
+          description: Berhasil mengirim data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "404":
+          description: Data tidak ditemukan
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "403":
+          description: Tidak bisa diakses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "500":
+          description: Terjadi Kesalahan Pada Server
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+
+  # route untuk product dengan category  dan query
+  /cart:
+      get:
+      responses:
+        "200":
+          description: Berhasil menerima data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    unit_id:
+                      type: integer
+                    name:
+                      type: string
+                    selling_price:
+                      type: integer
+                    qty_available:
+                      type: integer
+                    image_url:
+                      type: string
+                    unit:
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                    discounts:
+                      properties:
+                        product_id:
+                          type: integer
+                        is_discount_active:
+                          type: boolean
+                        is_discount_percentage:
+                          type: boolean
+                        discount:
+                          type: integer
+                  example:
+                    # ditampilkan secara urut abjad A-Z
+                    product-1:
+                      id: 1
+                      category_id: 1
+                      unit_id: 1
+                      name: Beras
+                      selling_price: 3000
+                      qty_available: 50
+                      image_url: "http://example.com"
+                      unit:
+                        id: 1
+                        name: Pcs
+                      discounts:
+                        product_id: 1
+                        is_discount_active: true
+                        is_discount_percentage: false
+                        discount: 500
+                    product-2:
+                      id: 2
+                      category_id: 1
+                      unit_id: 1
+                      name: Beras mawar 1 Liter
+                      selling_price: 17000
+                      qty_available: 30
+                      image_url: "http://example.com"
+                      unit:
+                        id: 1
+                        name: Pcs
+                      discounts:
+                        product_id: 1
+                        is_discount_active: true
+                        is_discount_percentage: false
+                        discount: 500
+        "404":
+          description: Data tidak ditemukan
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "403":
+          description: Tidak bisa diakses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "500":
+          description: Terjadi Kesalahan Pada Server
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+
+  # route add to cart
+  /cart/store:
+    post:
+      responses:
+        "200":
+          description: Berhasil mengirim data
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "404":
+          description: Data tidak ditemukan
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "403":
+          description: Tidak bisa diakses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "500":
+          description: Terjadi Kesalahan Pada Server
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+
+  # route add to cart
+  /cart/update:
+    put/patch:
+      responses:
+        "200":
+          description: data berhasil di update
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "404":
+          description: Data tidak ditemukan
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "403":
+          description: Tidak bisa diakses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+        "500":
+          description: Terjadi Kesalahan Pada Server
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
