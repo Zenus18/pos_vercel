@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('sub_total')->default(0);
             $table->integer('discount')->default(0);
             $table->integer('total')->default(0);
+            $table->integer('paid')->default(0);
             $table->integer('return')->default(0);
             $table->timestamps();
             $table->foreign('cashier_id')->references('id')->on('users');

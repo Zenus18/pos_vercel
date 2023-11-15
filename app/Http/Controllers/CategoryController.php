@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -12,9 +13,43 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
-    }
+        try {
+            $categories = Category::orderBy('name','asc')
+            ->get([
+                'id',
+                'name',
+            ]);
 
+            return response()->json([
+                'status'=> 200,
+                'description'=> 'Berhasil menerima data',
+                'data'=> $categories
+            ], 200);
+        } catch (\Throwable $th) {
+            if ($th instanceof ModelNotFoundException) {
+                return response()->json([
+                    'error'=> [
+                        'status'=> 404,
+                        'description'=> 'Data tidak ditemukan',
+                    ]
+                ], 404);
+            } else if ($th ) {
+                return response()->json([
+                    'error'=> [
+                        'status'=> 500,
+                        'description'=> 'Terjadi kesalahan pada server',
+                    ]
+                ], 500);
+            } else {
+                return response()->json([
+                    'error'=> [
+                        'status'=> 500,
+                        'description'=> 'Terjadi kesalahan pada server',
+                    ]
+                ], 500);
+            }
+        }
+    }
     /**
      * Show the form for creating a new resource.
      */
