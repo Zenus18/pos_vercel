@@ -33,13 +33,13 @@ class CategoryController extends Controller
                         'description'=> 'Data tidak ditemukan',
                     ]
                 ], 404);
-            } else if ($th ) {
+            } else if ($th ) { #Tidak bisa diakses (auth error)
                 return response()->json([
                     'error'=> [
-                        'status'=> 500,
-                        'description'=> 'Terjadi kesalahan pada server',
+                        'status'=> 400,
+                        'description'=> 'Tidak bisa diakses',
                     ]
-                ], 500);
+                ], 400);
             } else {
                 return response()->json([
                     'error'=> [

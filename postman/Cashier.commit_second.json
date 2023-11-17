@@ -1,0 +1,590 @@
+{
+	"info": {
+		"_postman_id": "ae87efd0-a90c-49cf-acb0-3a383a96699c",
+		"name": "Cashier",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28095724"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Get All Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/categories"
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/categories"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 11:26:51 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 11:26:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.4"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"description\": \"Berhasil menerima data\",\n    \"data\": [\n        {\n            \"id\": 2,\n            \"name\": \"Kebutuhan\"\n        },\n        {\n            \"id\": 1,\n            \"name\": \"Sembako\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/categories"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 11:32:54 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 11:32:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.4"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"status\": 404,\n        \"description\": \"Data tidak ditemukan\"\n    }\n}"
+						},
+						{
+							"name": "server error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/categories"
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 11:54:15 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 11:54:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.4"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"status\": 500,\n        \"description\": \"Terjadi kesalahan pada server\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get All Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/products"
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/products"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 17 Nov 2023 02:56:26 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 17 Nov 2023 02:56:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.4"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"description\": \"Berhasil ditampilkan\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"category_id\": 1,\n            \"unit_id\": 1,\n            \"discount_id\": 1,\n            \"name\": \"Minyak Goreng\",\n            \"image\": null,\n            \"selling_price\": 15000,\n            \"qty_available\": 40,\n            \"category\": {\n                \"id\": 1,\n                \"name\": \"Perlengkapan Rumah Tangga\"\n            },\n            \"unit\": {\n                \"id\": 1,\n                \"name\": \"Pcs\"\n            },\n            \"discount\": {\n                \"id\": 1,\n                \"is_discount_active\": 1,\n                \"is_discount_percentage\": 1,\n                \"discount\": 5\n            }\n        }\n    ]\n}"
+						},
+						{
+							"name": "not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/products"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 15:10:05 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 15:10:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.4"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"status\": 404,\n        \"description\": \"Data tidak ditemukan\"\n    }\n}"
+						},
+						{
+							"name": "server error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/products"
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 15:06:31 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 15 Nov 2023 15:06:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.4"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"status\": 500,\n        \"description\": \"Terjadi kesalahan pada server\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Get All Cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/carts"
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/carts"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 16 Nov 2023 21:58:09 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 16 Nov 2023 21:58:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.4"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 200,\n    \"description\": \"Berhasil ditampilkan\",\n    \"to_be_paid\": {\n        \"sub_total\": 12000,\n        \"discount\": 500,\n        \"total\": 11500\n    },\n    \"data\": [\n        {\n            \"id\": 10,\n            \"transaction_id\": null,\n            \"creator_id\": 1,\n            \"product_id\": 1,\n            \"qty\": 1,\n            \"price\": 3000,\n            \"sub_total\": 3000,\n            \"discount\": 0,\n            \"total\": 3000,\n            \"created_at\": \"2023-11-09T01:07:55.000000Z\",\n            \"updated_at\": \"2023-11-09T01:07:55.000000Z\",\n            \"product\": {\n                \"id\": 1,\n                \"name\": \"Mie Goreng\",\n                \"image\": null,\n                \"selling_price\": 3000,\n                \"discounts\": {\n                    \"product_id\": 1,\n                    \"is_discount_active\": 1,\n                    \"is_discount_percentage\": 0,\n                    \"discount\": 500\n                }\n            }\n        },\n        {\n            \"id\": 11,\n            \"transaction_id\": null,\n            \"creator_id\": 1,\n            \"product_id\": 1,\n            \"qty\": 1,\n            \"price\": 3000,\n            \"sub_total\": 3000,\n            \"discount\": 0,\n            \"total\": 3000,\n            \"created_at\": \"2023-11-09T01:16:37.000000Z\",\n            \"updated_at\": \"2023-11-09T01:16:37.000000Z\",\n            \"product\": {\n                \"id\": 1,\n                \"name\": \"Mie Goreng\",\n                \"image\": null,\n                \"selling_price\": 3000,\n                \"discounts\": {\n                    \"product_id\": 1,\n                    \"is_discount_active\": 1,\n                    \"is_discount_percentage\": 0,\n                    \"discount\": 500\n                }\n            }\n        },\n        {\n            \"id\": 12,\n            \"transaction_id\": null,\n            \"creator_id\": 1,\n            \"product_id\": 1,\n            \"qty\": 1,\n            \"price\": 3000,\n            \"sub_total\": 3000,\n            \"discount\": 0,\n            \"total\": 3000,\n            \"created_at\": \"2023-11-09T01:16:59.000000Z\",\n            \"updated_at\": \"2023-11-09T01:16:59.000000Z\",\n            \"product\": {\n                \"id\": 1,\n                \"name\": \"Mie Goreng\",\n                \"image\": null,\n                \"selling_price\": 3000,\n                \"discounts\": {\n                    \"product_id\": 1,\n                    \"is_discount_active\": 1,\n                    \"is_discount_percentage\": 0,\n                    \"discount\": 500\n                }\n            }\n        },\n        {\n            \"id\": 13,\n            \"transaction_id\": null,\n            \"creator_id\": 1,\n            \"product_id\": 1,\n            \"qty\": 1,\n            \"price\": 3000,\n            \"sub_total\": 3000,\n            \"discount\": 500,\n            \"total\": 2500,\n            \"created_at\": \"2023-11-12T15:40:03.000000Z\",\n            \"updated_at\": \"2023-11-12T15:40:03.000000Z\",\n            \"product\": {\n                \"id\": 1,\n                \"name\": \"Mie Goreng\",\n                \"image\": null,\n                \"selling_price\": 3000,\n                \"discounts\": {\n                    \"product_id\": 1,\n                    \"is_discount_active\": 1,\n                    \"is_discount_percentage\": 0,\n                    \"discount\": 500\n                }\n            }\n        }\n    ]\n}"
+						},
+						{
+							"name": "server error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/carts"
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 16 Nov 2023 20:53:45 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 16 Nov 2023 20:53:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.4"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"status\": 500,\n        \"description\": \"Terjadi kesalahan pada server\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Store Cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "product_id",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "qty",
+									"value": "10",
+									"type": "text"
+								}
+							]
+						},
+						"url": "{{url}}/cart/store"
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "product_id",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "qty",
+											"value": "10",
+											"type": "text"
+										}
+									]
+								},
+								"url": "{{url}}/cart/store"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 17 Nov 2023 07:49:38 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 17 Nov 2023 07:49:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.4"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": 201,\n    \"description\": \"Berhasil mengirim data\",\n    \"data\": {\n        \"transaction_id\": null,\n        \"creator_id\": 1,\n        \"product_id\": \"2\",\n        \"qty\": \"10\",\n        \"sub_total\": 50000,\n        \"discount\": 0,\n        \"total\": 50000,\n        \"updated_at\": \"2023-11-17T07:49:38.000000Z\",\n        \"created_at\": \"2023-11-17T07:49:38.000000Z\",\n        \"id\": 19\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

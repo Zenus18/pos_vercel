@@ -16,9 +16,9 @@ class ProductSeeder extends Seeder
         $data = [
             'category_id' => 1,
             'unit_id' => 1,
-            'name' => 'Minyak Goreng',
-            'selling_price' => 15000,
-            'qty_available' => '40',
+            'name' => 'Indomie Goreng Kuah',
+            'selling_price' => 5000,
+            'qty_available' => '50',
         ];
 
         Product::create($data);

@@ -3,8 +3,6 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
-use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +24,10 @@ Route::get("/product", [ProductController::class, 'productQuery']);
 Route::get("/products", [ProductController::class, 'index']);
 Route::get("/product/{id}", [ProductController::class, 'productDetail']);
 // Route::get("/scanProduct/{barcode}", [CartController::class, 'scanProduct']);
-Route::get("/carts", [CartController::class, 'index']);
-Route::post("/awikwok", [CartController::class, 'store']);
+
+Route::controller(CartController::class)->group(function(){
+    Route::get("/carts", 'index');
+    Route::post("/cart/store", 'store');
+});
 // Route::get("/productByCategorized/{id}", [ProductController::class, 'productByCategorized']);
 // Route::get("/searchProduct/{input}", [ProductController::class, 'productSearch']);

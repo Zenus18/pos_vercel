@@ -17,12 +17,13 @@ class ProductController extends Controller
             $products = Product::with(
                 'category:id,name',
                 'unit:id,name',
-                'discounts:product_id,is_discount_active,is_discount_percentage,discount'
+                'discount:id,is_discount_active,is_discount_percentage,discount'
                 )
                 ->get([
                 'id',
                 'category_id',
                 'unit_id',
+                'discount_id',
                 'name',
                 'image',
                 'selling_price',
@@ -42,13 +43,13 @@ class ProductController extends Controller
                         'description'=> 'Data tidak ditemukan',
                     ]
                 ], 404);
-            } else if ($th ) {
+            } else if ($th ) { #Tidak bisa diakses (auth error)
                 return response()->json([
                     'error'=> [
-                        'status'=> 500,
-                        'description'=> 'Terjadi kesalahan pada server',
+                        'status'=> 400,
+                        'description'=> 'Tidak bisa diakses',
                     ]
-                ], 500);
+                ], 400);
             } else {
                 return response()->json([
                     'error'=> [
@@ -100,7 +101,7 @@ class ProductController extends Controller
             'description',
         ]);
         return response()->json([
-            'status'=> 'OK',
+            'status'=> 200,
             'message' => 'Detail berhasil ditampilkan',
             'data' => $product,
         ], 200);

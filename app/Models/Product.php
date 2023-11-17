@@ -45,13 +45,13 @@ class Product extends Model
         return $this->belongsTo(Unit::class);
     }
     /**
-     * Get the discount associated with the Product
+     * Get the discount that owns the Product
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function discounts(): HasOne
+    public function discount(): BelongsTo
     {
-        return $this->hasOne(Discount::class);
+        return $this->belongsTo(Discount::class);
     }
     /**
      * Get all of the carts for the Product

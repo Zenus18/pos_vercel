@@ -14,7 +14,9 @@ class DiscountSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            'product_id' => 1
+            'is_discount_active' => true,
+            'is_discount_percentage' => true,
+            'discount' => 5,
         ];
         Discount::create($data);
     }

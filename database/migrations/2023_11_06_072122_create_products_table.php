@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('unit_id');
+            $table->unsignedBigInteger('discount_id')->nullable();
             $table->string('barcode')->nullable();
             $table->string('sku')->nullable();
             $table->string('name');
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('unit_id')->references('id')->on('units');
+            $table->foreign('discount_id')->references('id')->on('discounts');
         });
     }
 
