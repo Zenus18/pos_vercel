@@ -21,7 +21,7 @@ class CartController extends Controller
             'product.discount:id,is_discount_active,is_discount_percentage,discount'
             )
             ->whereNull('transaction_id')
-            ->orderBy("id","asc")
+            ->orderBy("id")
             ->get();
 
         $sub_total = 0;
@@ -86,55 +86,64 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make($request->all(), [
-            'qty' => 'required',
-            'product_id' => 'required',
-        ])->validate();
-
-        $creator_id = 1;
-        $qty = $request->input('qty');
-        $product_id = $request->input('product_id');
-
-        $product = Product::findOrFail($product_id);
-        $price = $product->selling_price;
-        $sub_total = $price * $qty;
-        $discount_id = $product->discount_id;
-        $discount = 0;
-
         try {
-            if ($discount_id != null) {
-                $discData = Discount::findOrFail($discount_id);
 
-                if ($discData->is_discount_active === 1) {
-                    if ($discData->is_discount_percentage === 1) {
-                        $discount = ($price * ($discData->discount / 100)) * $qty;
+            $validator = Validator::make($request->all(), [
+                'qty' => 'required',
+                'product_id' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => 400,
+                    'description' => 'Permintaan data tidak valid',
+                    'errors' => $validator->errors(),
+                ], 400);
+            } else {
+                $creator_id = 1; //kurang creator_id berdasarkan aut login
+                $qty = $request->input('qty');
+                $product_id = $request->input('product_id');
+
+                $product = Product::findOrFail($product_id);
+                $price = $product->selling_price;
+                $sub_total = $price * $qty;
+                $discount_id = $product->discount_id;
+                $discount = 0;
+
+                if ($discount_id != null) {
+                    $discData = Discount::findOrFail($discount_id);
+
+                    if ($discData->is_discount_active === 1) {
+                        if ($discData->is_discount_percentage === 1) {
+                            $discount = ($price * ($discData->discount / 100)) * $qty;
+                        } else {
+                            $discount = $discData->discount * $qty;
+                        }
                     } else {
-                        $discount = $discData->discount * $qty;
+                        $discount = 0;
                     }
                 } else {
                     $discount = 0;
                 }
-            } else {
-            $discount = 0;
+
+                $total = $sub_total - $discount;
+
+                $createCart = Cart::create([
+                    'transaction_id' => null,
+                    'creator_id'=> $creator_id,
+                    'product_id'=> $product_id,
+                    'qty'=> $qty,
+                    'sub_total'=> $sub_total,
+                    'discount'=> $discount,
+                    'total'=> $total,
+                ]);
+
+                return response()->json([
+                    'status' => 201,
+                    'description' => 'Berhasil mengirim data',
+                    'data' => $createCart,
+                ], 201);
             }
-
-            $total = $sub_total - $discount;
-
-            $createCart = Cart::create([
-                'transaction_id' => null,
-                'creator_id'=> $creator_id,
-                'product_id'=> $product_id,
-                'qty'=> $qty,
-                'sub_total'=> $sub_total,
-                'discount'=> $discount,
-                'total'=> $total,
-            ]);
-
-            return response()->json([
-                'status' => 201,
-                'description' => 'Berhasil mengirim data',
-                'data' => $createCart,
-            ], 201);
         } catch (\Throwable $th) {
             if ($th instanceof ModelNotFoundException) {
                 return response()->json([
@@ -151,6 +160,80 @@ class CartController extends Controller
                     ]
                 ], 400);
             } else {
+                return response()->json([
+                    'error'=> [
+                        'status'=> 500,
+                        'description'=> 'Terjadi kesalahan pada server',
+                    ]
+                ], 500);
+            }
+        }
+    }
+
+    public function scan(Request $request)
+    {
+        try {
+                $creator_id = 1; //kurang creator_id berdasarkan aut login
+                $qty = 1;
+                $barcode = $request->input('barcode');
+
+                $product = Product::where('barcode', $barcode)->first();
+                $price = $product->selling_price;
+                $sub_total = $price * $qty;
+                $discount_id = $product->discount_id;
+                $discount = 0;
+
+                if ($discount_id != null) {
+                    $discData = Discount::findOrFail($discount_id);
+
+                    if ($discData->is_discount_active === 1) { // tidak dipakai (dihilangkan)
+                        if ($discData->is_discount_percentage === 1) {
+                            $discount = ($price * ($discData->discount / 100)) * $qty;
+                        } else {
+                            $discount = $discData->discount * $qty;
+                        }
+                    } else {
+                        $discount = 0;
+                    }
+                } else {
+                    $discount = 0;
+                }
+
+                $total = $sub_total - $discount;
+
+                $createCart = Cart::create([
+                    'transaction_id' => null,
+                    'creator_id'=> $creator_id,
+                    'product_id'=> $product->id,
+                    'qty'=> $qty,
+                    'sub_total'=> $sub_total,
+                    'discount'=> $discount,
+                    'total'=> $total,
+                ]);
+
+                return response()->json([
+                    'status' => 201,
+                    'description' => 'Berhasil mengirim data',
+                    'data' => $createCart,
+                ], 201);
+        } catch (\Throwable $th) {
+            if ($th instanceof ModelNotFoundException) {
+                return response()->json([
+                    'error'=> [
+                        'status'=> 404,
+                        'description'=> 'Data tidak ditemukan',
+                    ]
+                ], 404);
+            }
+            else if ($th ) { #Tidak bisa diakses (auth error)
+                return response()->json([
+                    'error'=> [
+                        'status'=> 400,
+                        'description'=> 'Tidak bisa diakses',
+                    ]
+                ], 400);
+            }
+            else {
                 return response()->json([
                     'error'=> [
                         'status'=> 500,
