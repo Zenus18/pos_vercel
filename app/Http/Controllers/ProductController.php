@@ -8,10 +8,13 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    // Notes:
+    // 1. is_discount_active = true === show <> false
+    // 2. jika ada value null === ubah ke bentuk string "tidak tersedia/kosong"
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index() #is_qty_active = true = show / false = hide
     {
         try {
             $products = Product::with(
@@ -60,81 +63,64 @@ class ProductController extends Controller
             }
         }
     }
-    // public function productByCategorized($id)
-    // {
-    //     $category = Category::where('id', $id)->get();
-    //     foreach ($category as $header) {
-    //         $products = Product::with(
-    //             'category:id,name',
-    //             'unit:id,name',
-    //             'discounts:product_id,is_discount_active,is_discount_percentage,discount'
-    //             )
-    //             ->where('category_id', $header->id)
-    //             ->orderBy('name', 'asc')
-    //             ->get([
-    //             'id',
-    //             'category_id',
-    //             'unit_id',
-    //             'name',
-    //             'image',
-    //             'selling_price',
-    //             'qty_available',
-    //         ]);
-    //     }
 
-    //     return response()->json([
-    //         'status' => 'OK',
-    //         'message' => 'Berhasil ditampilkan',
-    //         'data' => $products,
-    //     ], 200);
-    // }
-    public function productDetail($id)
+    public function detail($id)
     {
-        $product = Product::with('discounts:id,is_discount_percentage,discount')
-        ->where('id', $id)
+        $product = Product::with('discount:id,is_discount_active,is_discount_percentage,discount')
+        ->where('id',$id)
         ->get([
             'id',
+            'discount_id',
             'image',
             'name',
             'selling_price',
             'qty_available',
             'description',
-        ]);
+        ])
+        ;
         return response()->json([
             'status'=> 200,
             'message' => 'Detail berhasil ditampilkan',
             'data' => $product,
         ], 200);
     }
-    public function productQuery(Request $request)
-    {
-        $query = $request->query('query');
-        $product = Product::with('category','unit','discounts')
-        ->where('name', 'like','%'.$query.'%')
-        ->get();
 
-        return response()->json($product, 200);
-    }
-    public function productSearch($input)
+    public function productQuery($name=null, $category=null)
     {
-        $product = Product::with('discounts:product_id,is_discount_percentage,discount')
-        ->where('name', 'like',"%".$input."%")
-        ->orWhere('barcode', 'like',"%".$input."%")
-        ->orWhere('sku', 'like',"%".$input."%")
-        ->get([
-            'id',
-            'image',
-            'name',
-            'selling_price',
-            'qty_available',
-            'description',
-        ]);
-        return response()->json([
-            'status'=> 'OK',
-            'message' => 'Detail berhasil ditampilkan',
-            'data' => $product,
-        ], 200);
+        $products = Product::get();
+
+        if ($name != null && $name != "") {
+            $products->where('name', 'like', '%' . $name . '%');
+        }
+
+        if ($category != null && $category != "") {
+            $products->whereHas('category', function ($query) use ($category) {
+                $query->where('category.name', $category);
+            });
+        }
+
+        return response()->json($products, 200);
     }
+    // public function productSearch($input)
+    // {
+    //     $product = Product::with('discounts:product_id,is_discount_percentage,discount')
+    //     ->where('name', 'like',"%".$input."%")
+    //     ->orWhere('barcode', 'like',"%".$input."%")
+    //     ->orWhere('sku', 'like',"%".$input."%")
+    //     ->get([
+    //         'id',
+    //         'image',
+    //         'name',
+    //         'selling_price',
+    //         'qty_available',
+    //         'description',
+    //     ]);
+    //     return response()->json([
+    //         'status'=> 'OK',
+    //         'message' => 'Detail berhasil ditampilkan',
+    //         'data' => $product,
+    //     ], 200);
+    // }
     /**
      * Show the form for creating a new resource.
      */
